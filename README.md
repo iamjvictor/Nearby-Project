@@ -1,7 +1,5 @@
 # Nearby - Clube de Benefícios
 
-![Nearby](path_to_your_logo_image)
-
 ## Sobre o Projeto
 
 Nearby é um clube de benefícios que permite aos usuários encontrar estabelecimentos próximos e ativar cupons de descontos. Nosso objetivo é facilitar a descoberta de locais e garantir vantagens exclusivas para nossos membros.
@@ -37,3 +35,14 @@ Para executar o projeto, siga os passos abaixo:
 1. **Clone o repositório**:
    ```bash
    git clone https://github.com/seu-usuario/nearby.git
+
+  Abra o projeto no Android Studio.
+
+  Compile e execute o aplicativo no dispositivo ou emulador de sua escolha.
+
+## Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests. Por favor, siga o guia de contribuição.
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Veja o arquivo 
