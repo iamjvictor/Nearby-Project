@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
-import com.rocketseat.nearby.core.network.NearbyRemoteDataSource
+import com.rocketseat.nearby.data.model.Category
+import com.rocketseat.nearby.data.model.Market
 import com.rocketseat.nearby.data.model.mock.MockDataService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,23 +21,26 @@ class HomeViewModel : ViewModel() {
         when (event) {
             is HomeUiEvent.OnFetchCategories -> fetchCategories()
             is HomeUiEvent.OnFetchMarkets -> fetchMarkets(categoryId = event.categoryId)
+            else -> {
+                Log.e("HomeViewModel", "Unknown event: $event")
+            }
         }
     }
 
     private fun fetchCategories() {
         viewModelScope.launch {
-            val result = NearbyRemoteDataSource.getCategories()
-            result.fold(onSuccess = { categories ->
+            try {
+                val categories = MockDataService.getMockCategories()
                 _uiState.update { currentUiState ->
                     currentUiState.copy(categories = categories)
                 }
                 Log.d("HomeViewModel", "Categories fetched: ${categories.size}")
-            }, onFailure = { error ->
+            } catch (error: Exception) {
                 _uiState.update { currentUiState ->
                     currentUiState.copy(categories = emptyList())
                 }
                 Log.e("HomeViewModel", "Failed to fetch categories", error)
-            })
+            }
         }
     }
 
@@ -48,11 +52,14 @@ class HomeViewModel : ViewModel() {
                     markets = markets,
                     marketLocations = markets.map { market ->
                         LatLng(market.latitude, market.longitude)
-
-                    })
+                    }
+                )
             }
-            Log.d ("HomeViewModel", "Mock markets fetched: ${markets.size}")
+            Log.d("HomeViewModel", "Mock markets fetched: ${markets.size}")
         }
     }
-
 }
+
+
+
+
